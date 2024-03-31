@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Бюджет</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="budget">
+    <h1>Общий бюджет: <span th:text="${totalBudget}">0</span> руб.</h1>
+    <a th:href="@{/transactions/categories}">Все категории</a>
+</div>
+<div class="container">
+    <div class="column">
+        <h2>Доходы <a th:href="@{/transactions/income/new}" class="add-button">Добавить</a></h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Сумма</th>
+                <th>Описание</th>
+                <th>Дата</th>
+                <th>Редактировать</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transaction : ${income}">
+                <td th:text="${transaction.amount}">100</td>
+                <td th:text="${transaction.description}">Зарплата</td>
+                <td th:text="${#temporals.format(transaction.transactionDate, 'dd MMMM yyyy', locale)}">01-01-2024</td>
+                <td><a th:href="@{'/transactions/income/' + ${transaction.id} + '/edit'}">Редактировать</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="column">
+        <h2>Расходы <a th:href="@{/transactions/expense/new}" class="add-button">Добавить</a></h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Сумма</th>
+                <th>Категория</th>
+                <th>Описание</th>
+                <th>Дата</th>
+                <th>Редактировать</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transaction : ${expense}">
+                <td th:text="${transaction.amount}">50</td>
+                <td th:text="${transaction.category.getName()}">Еда</td>
+                <td th:text="${transaction.description}">Продукты</td>
+                <td th:text="${#temporals.format(transaction.transactionDate, 'dd MMMM yyyy', locale)}">02-01-2024</td>
+                <td><a th:href="@{'/transactions/expense/' + ${transaction.id} + '/edit'}">Редактировать</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

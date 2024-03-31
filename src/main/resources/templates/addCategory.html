@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление категории</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Добавление категории</h1>
+
+<form th:action="@{/transactions/category}" th:object="${category}" th:method="POST">
+    <label for="name">Название:</label>
+    <input type="text" id="name" th:field="*{name}" required minlength="2" maxlength="30">
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+
+    <label for="description">Описание:</label>
+    <input type="text" id="description" th:field="*{description}">
+    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
+
+    <input type="submit" value="Добавить"/>
+</form>
+
+<a href="/transactions/categories">Назад</a>
+</body>
+</html>

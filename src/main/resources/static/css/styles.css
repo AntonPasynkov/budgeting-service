@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+.column {
+    width: 50%;
+}
+.budget {
+    text-align: center;
+    margin-bottom: 20px;
+}

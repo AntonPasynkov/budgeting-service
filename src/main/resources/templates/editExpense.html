@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование расхода</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Редактирование расхода</h1>
+
+<form th:action="@{'/transactions/expense/' + ${expense.id}}" th:object="${expense}" th:method="PATCH">
+    <!-- Скрытое поле для типа транзакции -->
+    <input type="hidden" th:field="*{type}" />
+
+    <label for="amount">Сумма:</label>
+    <input type="number" id="amount" th:field="*{amount}" step="0.01" required>
+    <div style="color:red" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</div>
+
+    <label for="category">Категория:</label>
+    <select id="category" th:field="*{category.id}">
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:data-name="${category.name}"
+                th:data-description="${category.description}"
+                th:text="${category.name}">
+        </option>
+    </select>
+
+    <label for="description">Комментарий:</label>
+    <input type="text" id="description" th:field="*{description}">
+    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
+
+    <label for="transactionDate">Дата:</label>
+    <input type="date" id="transactionDate" name="transactionDate" th:value="${#dates.format(formattedDate, 'yyyy-MM-dd')}" required>
+    <div style="color:red" th:if="${#fields.hasErrors('transactionDate')}" th:errors="*{transactionDate}">Transaction Date Error</div>
+
+    <input type="submit" value="Сохранить"/>
+</form>
+
+<form th:action="@{'/transactions/expense/' + ${expense.id}}" th:method="DELETE">
+    <input type="submit" value="Удалить"/>
+</form>
+
+<a href="/transactions">Назад</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div th:each="category : ${categories}">
+    <a th:href="@{'/transactions/category/' + ${category.id} + '/edit'}"
+       th:text="${category.name}">name</a>
+</div>
+
+<br/>
+<hr/>
+<a href="/transactions/category/new">Создать новую категорию</a>
+<hr/>
+<a href="/transactions">Назад</a>
+</body>
+</html>
